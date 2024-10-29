@@ -1,0 +1,86 @@
+# for react
+**/*.DS_Store
+frontend/node_modules
+frontend/scripts/flow/*/.flowconfig
+frontend/.flowconfig
+frontend/*~
+frontend/*.pyc
+frontend/.grunt
+frontend/_SpecRunner.html
+frontend/__benchmarks__
+frontend/build/
+frontend/build2/
+frontend/remote-repo/
+frontend/coverage/
+frontend/.module-cache
+frontend/fixtures/dom/public/react-dom.js
+frontend/fixtures/dom/public/react.js
+frontend/test/the-files-to-test.generated.js
+frontend/*.log*
+frontend/chrome-user-data
+frontend/*.sublime-project
+frontend/*.sublime-workspace
+frontend/.idea
+frontend/*.iml
+frontend/.vscode
+frontend/*.swp
+frontend/*.swo
+frontend/.eslintcache
+
+# dependencies
+frontend/.pnp
+frontend/.pnp.js
+
+# testing
+frontend/coverage
+
+# production
+frontend/build
+
+# misc
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+frontend/npm-debug.log*
+
+# temp
+frontend/temp/*
+
+!.gitkeep
+
+# for spring
+backend/HELP.md
+backend/.gradle
+backend/build/
+!backend/gradle/wrapper/gradle-wrapper.jar
+!backend/**/src/main/**/build/
+!backend/**/src/test/**/build/
+
+### STS ###
+backend/.apt_generated
+backend/.classpath
+backend/.factorypath
+backend/.project
+backend/.settings
+backend/.springBeans
+backend/.sts4-cache
+backend/bin/
+!backend/**/src/main/**/bin/
+!backend/**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+backend/.idea
+backend/*.iws
+backend/*.iml
+backend/*.ipr
+backend/out/
+!backend/**/src/main/**/out/
+!backend/**/src/test/**/out/
+
+### VS Code ###
+.vscode/
+
+#local storage
+backend/storage/

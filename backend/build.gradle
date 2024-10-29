@@ -1,0 +1,77 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id 'nu.studer.jooq' version '8.2'  // Plugin for jOOQ
+}
+
+group = 'com.clinic'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-jooq'
+	implementation 'org.flywaydb:flyway-core'
+  implementation 'org.flywaydb:flyway-database-postgresql'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// Spring Boot Starter for Data JPA
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  // PostgreSQL Driver
+  implementation 'org.postgresql:postgresql'
+  // jOOQ
+  implementation 'org.jooq:jooq'
+  jooqGenerator 'org.postgresql:postgresql'
+	// Spring Boot Starter for Web
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+jooq {
+  configurations {
+    main {  // This configuration name can be used to match your sourceSets
+      generationTool {
+        logging = 'INFO'
+        jdbc {
+          driver = 'org.postgresql.Driver'
+          url = System.getenv("DB_URL") ?: 'jdbc:postgresql://db:5432/clinic_appointments'
+          user = System.getenv("DB_USER") ?: 'clinic_admin'
+          password = System.getenv("DB_PASSWORD") ?: 'clinic_password'
+        }
+        generator {
+          name = 'org.jooq.codegen.DefaultGenerator'
+          strategy {
+            name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+          }
+          database {
+            name = 'org.jooq.meta.postgres.PostgresDatabase'
+            inputSchema = 'public'
+            includes = '.*'
+            excludes = 'flyway_schema_history'
+            recordVersionFields = 'version'
+          }
+          generate {
+            pojos = true
+            daos = true
+          }
+          target {
+            packageName = 'com.clinic.appointment'
+            directory = 'src/main/jooq'
+          }
+        }
+      }
+    }
+  }
+}

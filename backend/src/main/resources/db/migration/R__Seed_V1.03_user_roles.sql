@@ -1,0 +1,12 @@
+-- R__Seed_users.sql
+
+-- Clear the users table before seeding
+TRUNCATE TABLE user_roles RESTART IDENTITY CASCADE;
+
+INSERT INTO user_roles (user_id, role_id, created_at, updated_at, updated_by)
+VALUES
+  (1, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+  (2, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+  (3, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+  (4, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+  (5, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);

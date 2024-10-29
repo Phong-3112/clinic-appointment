@@ -1,0 +1,39 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    user: root
+    command: "sh ./gradlew bootRun"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app
+      - gradle:/root/.gradle/wrapper
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+      - gradle_caches:/root/.gradle/caches
+    environment:
+      - TZ=Asia/Tokyo
+    depends_on:
+      - db
+    tty: true
+
+  db:
+    image: postgres:latest
+    env_file:
+      - db.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/initdb:/docker-entrypoint-initdb.d
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  postgres_data:
+    driver: local
+  gradle:
+    driver: local
+  gradle_caches:
+    driver: local
